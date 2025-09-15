@@ -3,6 +3,9 @@ body {
   font-family: "Space Mono", sans-serif;
   background: #f6f8ff;
 }
+.dark body {
+  background: #141d2f;
+}
 
 .logo {
   color: rgba(34, 39, 49, 1);
@@ -10,6 +13,9 @@ body {
   font-weight: 700;
 }
 
+.dark .logo {
+  color: rgba(255, 255, 255, 1);
+}
 .searchDev,
 .devResult {
   border-radius: 15px;

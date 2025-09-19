@@ -1,5 +1,4 @@
 const toggle = document.getElementById("themeToggle");
-console.log(toggle);
 
 if (localStorage.getItem("theme") === "dark") {
   document.documentElement.classList.add("dark");

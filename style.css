@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-body {
+html {
   font-family: "Space Mono", sans-serif;
   background: #f6f8ff;
 }
-.dark body {
+.dark {
   background: #141d2f;
 }
 
@@ -14,11 +14,77 @@ body {
 }
 
 .dark .logo {
-  color: rgba(255, 255, 255, 1);
+  color: #ffffff;
+}
+
+.dark .swap-on {
+  color: #ffffff;
+}
+.dark .swap-on:hover {
+  color: #90a4d4;
 }
 .searchDev,
 .devResult {
   border-radius: 15px;
   box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.2);
   background: white;
+}
+.dark .searchDev,
+.dark .devResult {
+  background: rgba(30, 42, 71, 1);
+  box-shadow: none;
+}
+
+.dark input,
+.dark .date,
+.dark input::placeholder,
+.dark h2,
+.dark .desc,
+.dark .profile-stats h3,
+.dark .profile-stats p,
+.dark .social {
+  color: #ffffff;
+}
+.dark .profile-stats {
+  background: rgba(20, 29, 47, 1);
+}
+.avatar {
+  grid-area: avatar;
+}
+.info {
+  grid-area: info;
+  align-self: center;
+}
+.bio {
+  grid-area: bio;
+}
+
+@media screen and (min-width: 768px) {
+  .devResult {
+    display: grid;
+    grid-template-areas:
+      "avatar info info info info"
+      "bio bio bio bio bio";
+    grid-template-columns: auto 1fr;
+    column-gap: 37px;
+    row-gap: 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .devResult {
+    grid-template-areas:
+      "avatar info info info info"
+      "avatar bio bio bio bio";
+    grid-template-columns: auto 1fr;
+    row-gap: 20px;
+  }
+  .info {
+    align-self: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .date {
+    margin-top: 10px;
+  }
 }

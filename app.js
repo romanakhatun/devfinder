@@ -16,6 +16,7 @@ toggle.addEventListener("change", () => {
   }
 });
 
+// Search Developer Result
 const searchBtn = document.getElementById("searchBtn");
 searchBtn.addEventListener("click", () => {
   const username = document.getElementById("search").value;
@@ -39,13 +40,17 @@ searchBtn.addEventListener("click", () => {
       return res.json();
     })
     .then((data) => {
-      displayData(data); // GitHub user data
+      displayData(data);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => alert(err));
 });
 
 const displayData = (data) => {
-  const devResult = document.querySelector(".devResultWrapper");
+  const devWrapper = document.querySelector(".devWrapper");
+  devWrapper.innerHTML = "";
+
+  const div = document.createElement("div");
+  div.classList.add("devResult");
 
   console.log(data);
   const {
@@ -65,19 +70,20 @@ const displayData = (data) => {
   } = data;
 
   const totalRepos = (private_repos || 0) + (public_repos || 0);
+
   // Date Formatted
   const date = new Date(created_at);
   const options = { day: "2-digit", month: "short", year: "numeric" };
   const formatted = date.toLocaleDateString("en-GB", options);
 
-  devResult.innerHTML = `
+  div.innerHTML = `
         <div class="avatar w-[100px] md:w-[117px] md:h-[117px] object-cover">
           <img class="rounded-full" src=${avatar_url} alt=${name} />
         </div>
 
         <div class="info my-5 md:my-0">
           <div>
-            <h2 class="text-[26px] font-bold text-[#2b3442]">The Octocat</h2>
+            <h2 class="text-[26px] font-bold text-[#2b3442]">${name}</h2>
             <a href=${html_url} target="_blank"><p class="text-[#0079ff]">@${login}</p></a>
           </div>
 
@@ -87,7 +93,7 @@ const displayData = (data) => {
         </div>
 
         <div class="bio">
-          <p class="desc text-[#4b6a9b] opacity-75 mb-8">
+          <p class="desc text-[#4b6a9b] ${bio || "opacity-75"}  mb-8">
             ${bio ? bio : "This profile has no bio"}
           </p>
 
@@ -114,15 +120,15 @@ const displayData = (data) => {
           </div>
 
           <div
-            class="social flex flex-col lg:flex-row gap-5 mt-[37px] justify-between text-[#4b6a9b]"
+            class="social flex flex-col lg:flex-row gap-5 mt-[37px] justify-between text-[#4b6a9b] "
           >
             <div>
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-4 ${location || "opacity-50"} ">
                 <svg
                   viewBox="0 0 13.7526 20"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  width="13.752563"
+                  width="16.752563"
                   height="20.000000"
                   fill="currentColor"
                   customFrame="#000000"
@@ -134,17 +140,17 @@ const displayData = (data) => {
                   />
                 </svg>
 
-                <span class="text-[15px] font-normal"> ${
-                  location && location
-                } </span>
+                <span class="text-[15px] font-normal"> 
+                ${location ? location : "Not Available"} 
+                </span>
               </div>
 
-              <div class="flex items-center gap-4 mt-5">
+              <div class="flex items-center gap-4 mt-5 ${blog || "opacity-50"}">
                 <svg
                   viewBox="0 0 19.991 19.9451"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  width="19.990967"
+                  width="21.990967"
                   height="19.945068"
                   fill="currentColor"
                   customFrame="#000000"
@@ -164,7 +170,11 @@ const displayData = (data) => {
                 </svg>
 
                 <span class="text-[15px] font-normal">
-                  <a class="hover:underline" target="_blank" href=${blog}> ${blog} </a>
+                  <a class="${
+                    blog && "hover:underline"
+                  }" target="_blank" href=${blog}> 
+                  ${blog ? blog : "Not Available"} 
+                </a>
                 </span>
               </div>
             </div>
@@ -192,14 +202,18 @@ const displayData = (data) => {
                 </svg>
 
                 
-                <a hover:underline href="https://x.com/${twitter_username}" target="_blank"> 
+                <a class="${
+                  twitter_username && "hover:underline"
+                }" href="https://x.com/${twitter_username}" target="_blank"> 
                 <span class="text-[15px] font-normal"> 
                 ${twitter_username ? twitter_username : "Not Available"}  
                 </span>
                 </a>
               </div>
 
-              <div class="flex items-center gap-4 mt-5">
+              <div class="flex items-center gap-4 mt-5 ${
+                html_url || "opacity-50"
+              }">
                 <svg
                   viewBox="0 0 20 19.8516"
                   xmlns="http://www.w3.org/2000/svg"
@@ -224,11 +238,14 @@ const displayData = (data) => {
                 </svg>
 
                 <span class="text-[15px] font-normal">
-                  <a hover:underline href=${html_url}> @github </a>
+                  <a class="hover:underline" target="_blank" href=${html_url}> 
+                  ${html_url ? "@github" : "Not Available"} 
+                 </a>
                 </span>
               </div>
             </div>
           </div>
         </div>
         `;
+  devWrapper.appendChild(div);
 };

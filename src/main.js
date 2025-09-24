@@ -1,5 +1,7 @@
-const toggle = document.getElementById("themeToggle");
+import "./style.css";
 
+const token = import.meta.env.VITE_GITHUB_KEY;
+const toggle = document.getElementById("themeToggle");
 if (localStorage.getItem("theme") === "dark") {
   document.documentElement.classList.add("dark");
   toggle.checked = true; // checkbox sync
@@ -20,7 +22,6 @@ toggle.addEventListener("change", () => {
 const searchBtn = document.getElementById("searchBtn");
 searchBtn.addEventListener("click", () => {
   const username = document.getElementById("search").value;
-  const token = "GITHUB_ACCESS_TOKEN";
 
   if (!username) {
     alert("Please enter a GitHub username");

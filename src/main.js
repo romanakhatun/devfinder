@@ -53,7 +53,6 @@ const displayData = (data) => {
   const div = document.createElement("div");
   div.classList.add("devResult");
 
-  console.log(data);
   const {
     avatar_url,
     name,
